@@ -918,6 +918,30 @@ body {
   letter-spacing: 0.2px;
 }
 
+.card__theme--orange {
+  background-color: #ffe4c2;
+}
+
+.card__theme--orange p {
+  color: #ff6d00;
+}
+
+.card__theme--green {
+  background-color: #b4fdd1;
+}
+
+.card__theme--green p {
+  color: #06b16e;
+}
+
+.card__theme--purple {
+  background-color: #e9d4ff;
+}
+
+.card__theme--purple p {
+  color: #9a48f1;
+}
+
 @media screen and (max-width: 1200px) {
   .main__block {
     width: 100%;

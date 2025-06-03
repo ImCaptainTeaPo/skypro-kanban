@@ -1,10 +1,18 @@
 function Card({ topic, title, date }) {
+  const topicClassMap = {
+    "Web Design": "card__theme--orange",
+    Research: "card__theme--green",
+    Copywriting: "card__theme--purple",
+  };
+
+  const themeClass = topicClassMap[topic] || "card__theme--default";
+
   return (
     <div className="cards__item">
       <div className="cards__card card">
         <div className="card__group">
-          <div className="card__theme _orange">
-            <p className="_orange">{topic}</p>
+          <div className={`card__theme ${themeClass}`}>
+            <p>{topic}</p>
           </div>
           <a href="#popBrowse" target="_self">
             <div className="card__btn">

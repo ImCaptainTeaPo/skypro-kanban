@@ -8,14 +8,14 @@ export const cardsData = [
   },
   {
     id: 2,
-    topic: "React",
+    topic: "Research",
     title: "Разобраться с пропсами и useEffect",
     date: "2025-06-07",
     status: "Нужно сделать",
   },
   {
     id: 3,
-    topic: "UI/UX",
+    topic: "Copywriting",
     title: "Собрать фидбэк по макету от команды",
     date: "2025-06-10",
     status: "В работе",
