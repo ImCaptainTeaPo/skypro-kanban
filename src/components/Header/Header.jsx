@@ -1,36 +1,47 @@
 import { useState } from "react";
+import {
+  HeaderWrapper,
+  HeaderBlock,
+  HeaderLogo,
+  HeaderNav,
+  HeaderButton,
+  HeaderUser,
+  HeaderPopUserSet,
+} from "./Header.styled";
 
 function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   return (
-    <header className="header">
+    <HeaderWrapper>
       <div className="container">
-        <div className="header__block">
-          <div className="header__logo _show _light">
+        <HeaderBlock>
+          {/* Светлый логотип */}
+          <div className="_show _light">
             <a href="" target="_self">
-              <img src="images/logo.png" alt="logo" />
+              <HeaderLogo src="images/logo.png" alt="logo" />
             </a>
           </div>
-          <div className="header__logo _dark">
+
+          {/* Тёмный логотип */}
+          <div className="_dark">
             <a href="" target="_self">
-              <img src="images/logo_dark.png" alt="logo" />
+              <HeaderLogo src="images/logo_dark.png" alt="logo" />
             </a>
           </div>
-          <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew">
+
+          <HeaderNav>
+            <HeaderButton id="btnMainNew">
               <a href="#popNewCard">Создать новую задачу</a>
-            </button>
-            <button
-              className="header__user _hover02"
-              onClick={() => setIsPopupOpen(!isPopupOpen)}
-            >
+            </HeaderButton>
+
+            <HeaderUser onClick={() => setIsPopupOpen(!isPopupOpen)}>
               Ivan Ivanov
-            </button>
-            <div
-              className="header__pop-user-set pop-user-set"
+            </HeaderUser>
+
+            <HeaderPopUserSet
               style={{ display: isPopupOpen ? "block" : "none" }}
             >
-              {/* <a href="">x</a> */}
               <p className="pop-user-set__name">Ivan Ivanov</p>
               <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
               <div className="pop-user-set__theme">
@@ -40,11 +51,11 @@ function Header() {
               <button type="button" className="_hover03">
                 <a href="#popExit">Выйти</a>
               </button>
-            </div>
-          </nav>
-        </div>
+            </HeaderPopUserSet>
+          </HeaderNav>
+        </HeaderBlock>
       </div>
-    </header>
+    </HeaderWrapper>
   );
 }
 
