@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { cardsData } from "../../data/data";
 import Column from "../Column/Column";
+import { MainWrapper, MainBlock, MainContent, MainColumn } from "./Main.styled";
 
 function Main() {
   const [cards, setCards] = useState([]);
@@ -24,27 +25,28 @@ function Main() {
   ];
 
   return (
-    <main className="main">
+    <MainWrapper>
       <div className="container">
-        <div className="main__block">
-          <div className="main__content">
+        <MainBlock>
+          <MainContent>
             {isLoading ? (
               <p style={{ fontSize: "20px", padding: "20px" }}>
                 Данные загружаются…
               </p>
             ) : (
               statuses.map((status) => (
-                <Column
-                  key={status}
-                  title={status}
-                  cards={cards.filter((card) => card.status === status)}
-                />
+                <MainColumn key={status}>
+                  <Column
+                    title={status}
+                    cards={cards.filter((card) => card.status === status)}
+                  />
+                </MainColumn>
               ))
             )}
-          </div>
-        </div>
+          </MainContent>
+        </MainBlock>
       </div>
-    </main>
+    </MainWrapper>
   );
 }
 
