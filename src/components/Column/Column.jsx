@@ -1,12 +1,18 @@
 import Card from "../Card/Card";
+import {
+  ColumnWrapper,
+  ColumnTitle,
+  ColumnTitleText,
+  CardsContainer,
+} from "./Column.styled";
 
 function Column({ title, cards }) {
   return (
-    <div className="main__column column">
-      <div className="column__title">
-        <p>{title}</p>
-      </div>
-      <div className="cards">
+    <ColumnWrapper>
+      <ColumnTitle>
+        <ColumnTitleText>{title}</ColumnTitleText>
+      </ColumnTitle>
+      <CardsContainer>
         {cards && cards.length > 0 ? (
           cards.map((card) => (
             <Card
@@ -19,8 +25,8 @@ function Column({ title, cards }) {
         ) : (
           <p style={{ padding: "10px", fontStyle: "italic" }}>Нет задач</p>
         )}
-      </div>
-    </div>
+      </CardsContainer>
+    </ColumnWrapper>
   );
 }
 

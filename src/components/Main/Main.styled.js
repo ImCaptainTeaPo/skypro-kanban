@@ -18,6 +18,7 @@ export const MainBlock = styled.div`
 export const MainContent = styled.div`
   width: 100%;
   display: flex;
+  gap: 19px;
 
   @media screen and (max-width: 1200px) {
     display: block;
