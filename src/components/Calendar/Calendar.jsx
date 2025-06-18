@@ -1,6 +1,6 @@
 import {
   CalendarWrapper,
-  CalendarTitle,
+  CalendarTtl,
   CalendarBlock,
   CalendarNav,
   CalendarMonth,
@@ -12,14 +12,13 @@ import {
   CalendarCells,
   CalendarCell,
   CalendarPeriod,
-  CalendarText,
-  DateControl,
+  CalendarParagraph,
 } from "./Calendar.styled";
 
 function Calendar() {
   return (
     <CalendarWrapper>
-      <CalendarTitle className="subttl">Даты</CalendarTitle>
+      <CalendarTtl className="subttl">Даты</CalendarTtl>
       <CalendarBlock>
         <CalendarNav>
           <CalendarMonth>Сентябрь 2023</CalendarMonth>
@@ -108,9 +107,9 @@ function Calendar() {
 
         <input type="hidden" id="datepick_value" value="08.09.2023" />
         <CalendarPeriod>
-          <CalendarText>
-            Выберите срок исполнения <DateControl className="date-control" />.
-          </CalendarText>
+          <CalendarParagraph>
+            Выберите срок исполнения <span className="date-control" />.
+          </CalendarParagraph>
         </CalendarPeriod>
       </CalendarBlock>
     </CalendarWrapper>
