@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { cardsData } from "../../data/data";
 import Column from "../Column/Column";
+import { Container } from "../shared.styled";
 import { MainWrapper, MainBlock, MainContent, MainColumn } from "./Main.styled";
 
 function Main() {
@@ -26,7 +27,8 @@ function Main() {
 
   return (
     <MainWrapper>
-      <div className="container">
+      <Container>
+        {" "}
         <MainBlock>
           <MainContent>
             {isLoading ? (
@@ -45,7 +47,7 @@ function Main() {
             )}
           </MainContent>
         </MainBlock>
-      </div>
+      </Container>
     </MainWrapper>
   );
 }

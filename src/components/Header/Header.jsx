@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Container } from "../shared.styled";
 import {
   HeaderWrapper,
   HeaderBlock,
@@ -21,7 +22,7 @@ function Header() {
 
   return (
     <HeaderWrapper>
-      <div className="container">
+      <Container>
         <HeaderBlock>
           {/* Светлый логотип */}
           <div className={!isDarkTheme ? "_show _light" : "_hide"}>
@@ -62,7 +63,7 @@ function Header() {
             </HeaderPopUserSet>
           </HeaderNav>
         </HeaderBlock>
-      </div>
+      </Container>
     </HeaderWrapper>
   );
 }
