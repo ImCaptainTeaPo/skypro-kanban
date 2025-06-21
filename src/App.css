@@ -15,13 +15,13 @@ a:visited {
   cursor: pointer;
 }
 
-button,
+*,
 ._btn {
   cursor: pointer;
   outline: none;
 }
 
-ul li {
+ul, li {
   list-style: none;
 }
 
@@ -35,6 +35,7 @@ ul li {
     opacity: 1;
   }
 }
+
 html,
 body {
   width: 100%;
@@ -99,7 +100,7 @@ body {
 
 ._purple {
   background-color: #e9d4ff;
-  color: #9a48f1;
+  color: #948ff1;
 }
 
 ._gray {
@@ -246,7 +247,7 @@ body {
   width: 24px;
   height: 13px;
   border-radius: 100px;
-  background: #eaeef6;
+  background: #eeeff6;
   outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -504,7 +505,7 @@ body {
 
 ._cell-day:hover {
   color: #94a6be;
-  background-color: #eaeef6;
+  background-color: #eeeff6;
 }
 
 ._active-day {
@@ -641,7 +642,7 @@ body {
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #eaeef6;
+  background: #eeeff6;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
@@ -721,7 +722,7 @@ body {
   display: none;
 }
 
-/* .header {
+.header {
   width: 100%;
   margin: 0 auto;
   background-color: #ffffff;
@@ -799,11 +800,11 @@ body {
   padding: 34px;
   text-align: center;
   z-index: 2;
-} */
+}
 
 .main {
   width: 100%;
-  background-color: #eaeef6;
+  background-color: #eeeff6;
 }
 .main__block {
   width: 100%;
@@ -815,7 +816,7 @@ body {
   display: flex;
 }
 .main__column {
-  /* width: 20%; */
+  width: 20%;
   margin: 0 auto;
   display: block;
 }
@@ -939,7 +940,7 @@ body {
 }
 
 .card__theme--purple p {
-  color: #9a48f1;
+  color: #948ff1;
 }
 
 @media screen and (max-width: 1200px) {
