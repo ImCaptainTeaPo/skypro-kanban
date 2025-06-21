@@ -7,24 +7,31 @@ import {
   HeaderButton,
   HeaderUser,
   HeaderPopUserSet,
+  PopUserName,
+  PopUserMail,
+  PopUserTheme,
+  PopUserThemeLabel,
+  PopUserThemeToggle,
+  PopUserExitButton,
 } from "./Header.styled";
 
 function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   return (
     <HeaderWrapper>
       <div className="container">
         <HeaderBlock>
           {/* Светлый логотип */}
-          <div className="_show _light">
+          <div className={!isDarkTheme ? "_show _light" : "_hide"}>
             <a href="" target="_self">
               <HeaderLogo src="images/logo.png" alt="logo" />
             </a>
           </div>
 
           {/* Тёмный логотип */}
-          <div className="_dark">
+          <div className={isDarkTheme ? "_dark" : "_hide"}>
             <a href="" target="_self">
               <HeaderLogo src="images/logo_dark.png" alt="logo" />
             </a>
@@ -39,18 +46,19 @@ function Header() {
               Ivan Ivanov
             </HeaderUser>
 
-            <HeaderPopUserSet
-              style={{ display: isPopupOpen ? "block" : "none" }}
-            >
-              <p className="pop-user-set__name">Ivan Ivanov</p>
-              <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-              <div className="pop-user-set__theme">
-                <p>Темная тема</p>
-                <input type="checkbox" className="checkbox" name="checkbox" />
-              </div>
-              <button type="button" className="_hover03">
+            <HeaderPopUserSet $isOpen={isPopupOpen}>
+              <PopUserName>Ivan Ivanov</PopUserName>
+              <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
+              <PopUserTheme>
+                <PopUserThemeLabel>Темная тема</PopUserThemeLabel>
+                <PopUserThemeToggle
+                  checked={isDarkTheme}
+                  onChange={() => setIsDarkTheme(!isDarkTheme)}
+                />
+              </PopUserTheme>
+              <PopUserExitButton>
                 <a href="#popExit">Выйти</a>
-              </button>
+              </PopUserExitButton>
             </HeaderPopUserSet>
           </HeaderNav>
         </HeaderBlock>
