@@ -28,6 +28,11 @@ export const CardWrapper = styled.div`
   align-items: flex-start;
   justify-content: stretch;
   padding: 15px 13px 19px;
+
+  @media (max-width: 1200px) {
+    width: 220px;
+    height: 130px;
+  }
 `;
 
 export const CardGroup = styled.div`
@@ -62,7 +67,7 @@ export const CardTheme = styled.div`
   &.card__theme--purple {
     background-color: #e9d4ff;
     p {
-      color: #9a48f1;
+      color: #948ff1; /* Исправлено на оригинальный цвет */
     }
   }
 
