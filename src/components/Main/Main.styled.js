@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MainWrapper = styled.main`
   width: 100%;
-  background-color: #eaeef6;
+  background-color: #eeeff6;
 `;
 
 export const MainBlock = styled.div`
@@ -32,5 +32,6 @@ export const MainColumn = styled.div`
 
   @media screen and (max-width: 1200px) {
     width: 100%;
+    margin-bottom: 20px;
   }
 `;
