@@ -4,12 +4,22 @@ export const CalendarWrapper = styled.div`
   width: 100%;
   max-width: 340px;
   margin-left: 21px;
+  margin-bottom: 20px;
+
+  @media (max-width: 660px) {
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+  }
 `;
 
 export const CalendarTtl = styled.p`
   font-size: 14px;
   line-height: 100%;
   margin-bottom: 14px;
+  padding: 0 7px;
+  color: #000;
+  font-weight: 600;
 `;
 
 export const CalendarBlock = styled.div`
@@ -21,6 +31,8 @@ export const CalendarNav = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 7px;
+  margin-top: 14px;
 `;
 
 export const CalendarMonth = styled.div`
@@ -54,68 +66,79 @@ export const CalendarContent = styled.div`
 `;
 
 export const CalendarDaysNames = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 7px;
-  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin: 7px 0;
+  padding: 0 7px;
 `;
 
 export const CalendarDayName = styled.div`
-  color: #94a6be;
-  font-size: 14px;
+  color: ${(props) => (props.$weekend ? "#ff5c5c" : "#94a6be")};
+  font-size: 10px;
   font-weight: 500;
+  line-height: normal;
   letter-spacing: -0.2px;
+  text-align: center;
 
-  &.calendar__day-name.-weekend- {
-    color: #ff5c5c;
+  @media (max-width: 660px) {
+    font-size: 14px;
   }
 `;
 
 export const CalendarCells = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  padding: 0 7px;
+
+  @media (max-width: 660px) {
+    gap: 8px;
+  }
 `;
 
 export const CalendarCell = styled.div`
-  width: 42px;
-  height: 42px;
-  margin: 0 0 0 2px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  font-size: 10px;
   line-height: 1;
   letter-spacing: -0.2px;
-  color: #94a6be;
+  color: ${(props) => {
+    if (props.$other) return "#d5d5d5";
+    if (props.$weekend) return "#ff5c5c";
+    return "#94a6be";
+  }};
   cursor: pointer;
+  font-weight: ${(props) => (props.$current ? "700" : "normal")};
+  background-color: ${(props) => (props.$current ? "#eaeef6" : "transparent")};
 
-  &._weekend {
-    color: #ff5c5c;
-  }
-
-  &._other-month {
-    color: #d5d5d5;
-  }
-
-  &._current {
-    color: #000000;
+  &:hover {
     background-color: #eaeef6;
-    font-weight: 700;
+  }
+
+  @media (max-width: 660px) {
+    font-size: 14px;
   }
 `;
 
 export const CalendarPeriod = styled.div`
-  padding: 0;
+  padding: 0 7px;
 `;
 
 export const CalendarParagraph = styled.p`
   color: #94a6be;
-  font-size: 14px;
+  font-size: 10px;
   line-height: 1;
 
   span {
     color: #000000;
+    font-weight: 600;
+  }
+
+  @media (max-width: 660px) {
+    font-size: 14px;
   }
 `;
