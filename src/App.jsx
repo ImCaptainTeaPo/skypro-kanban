@@ -1,21 +1,7 @@
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import Popups from "./components/Popups/Popups";
-import GlobalStyles from "./styles/GlobalStyles";
-import { GlobalWrapper } from "./components/shared.styled";
+import AppRoutes from './AppRoutes';
 
 function App() {
-  return (
-    <>
-      <GlobalStyles />
-      <GlobalWrapper>
-        {" "}
-        <Popups />
-        <Header />
-        <Main />
-      </GlobalWrapper>
-    </>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
