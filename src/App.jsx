@@ -1,20 +1,16 @@
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import Popups from "./components/Popups/Popups";
+import { BrowserRouter } from "react-router-dom";
 import GlobalStyles from "./styles/GlobalStyles";
 import { GlobalWrapper } from "./components/shared.styled";
+import AppRoutes from "./AppRoutes";
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <GlobalStyles />
       <GlobalWrapper>
-        {" "}
-        <Popups />
-        <Header />
-        <Main />
+        <AppRoutes />
       </GlobalWrapper>
-    </>
+    </BrowserRouter>
   );
 }
 

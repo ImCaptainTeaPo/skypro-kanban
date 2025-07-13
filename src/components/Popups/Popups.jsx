@@ -8,8 +8,6 @@ function Popups() {
       <PopUser />
 
       <PopNewCard />
-
-      <PopBrowse />
     </>
   );
 }
