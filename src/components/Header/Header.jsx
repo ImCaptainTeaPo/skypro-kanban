@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "../shared.styled";
 import {
@@ -21,6 +21,19 @@ function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const navigate = useNavigate();
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setIsPopupOpen(false);
+        setTimeout(() => navigate("/"), 100);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [navigate]);
 
   return (
     <HeaderWrapper>
@@ -49,7 +62,7 @@ function Header() {
               Ivan Ivanov
             </HeaderUser>
 
-            <HeaderPopUserSet $isOpen={isPopupOpen}>
+            <HeaderPopUserSet ref={modalRef} $isOpen={isPopupOpen}>
               <PopUserName>Ivan Ivanov</PopUserName>
               <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
               <PopUserTheme>

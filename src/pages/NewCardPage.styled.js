@@ -46,7 +46,7 @@ export const PopNewCardBlock = styled.div`
   }
 `;
 
-export const PopNewCardContent = styled.div`
+export const PopNewCardContent = styled.form`
   display: block;
   text-align: left;
 `;
@@ -81,7 +81,7 @@ export const PopNewCardWrap = styled.div`
   }
 `;
 
-export const PopNewCardForm = styled.form`
+export const PopNewCardForm = styled.div`
   max-width: 370px;
   width: 100%;
   display: block;
@@ -93,6 +93,7 @@ export const PopNewCardForm = styled.form`
 `;
 
 export const PopNewCardCalendar = styled.div`
+  margin-right: 41px;
   width: 100%;
 
   @media screen and (max-width: 495px) {
@@ -139,6 +140,7 @@ export const FormArea = styled.textarea`
   max-width: 370px;
   margin-top: 14px;
   height: 200px;
+  margin-bottom: 20px;
 
   &::placeholder {
     font-weight: 400;
@@ -185,6 +187,7 @@ export const FormSubTitle = styled.p`
 `;
 
 export const ThemesGroup = styled.div`
+  margin-top: 14px;
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-start;

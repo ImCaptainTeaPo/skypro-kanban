@@ -64,17 +64,14 @@ function NewCardPage() {
                     </ThemeItem>
                   </ThemesGroup>
                 </FormBlock>
-
-                <FormBlock>
-                  <FormSubTitle>Дедлайн</FormSubTitle>
-                  <PopNewCardCalendar>
-                    <Calendar />
-                  </PopNewCardCalendar>
-                </FormBlock>
-
-                <FormButton type="submit">Создать задачу</FormButton>
               </PopNewCardForm>
+              <FormBlock>
+                <PopNewCardCalendar>
+                  <Calendar />
+                </PopNewCardCalendar>
+              </FormBlock>
             </PopNewCardWrap>
+            <FormButton type="submit">Создать задачу</FormButton>
           </PopNewCardContent>
         </PopNewCardBlock>
       </PopNewCardContainer>
