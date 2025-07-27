@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { useState } from "react";
 
 import Login from "./pages/login/Login";
@@ -9,57 +9,25 @@ import NewCardPage from "./pages/NewCardPage";
 import ExitPage from "./pages/ExitPage";
 import NotFound from "./pages/NotFound";
 
-import Header from "./components/Header/Header";
-import Popups from "./components/Popups/Popups";
-
 export default function AppRoutes() {
   const [isAuth, setIsAuth] = useState(true);
 
-  const PrivateRoute = ({ children }) => {
-    return isAuth ? children : <Navigate to="/login" />;
+  const PrivateRoute = () => {
+    return isAuth ? <Outlet /> : <Navigate to="/login" />;
   };
 
   return (
     <>
-      <Popups />
-      <Header />
-
       <Routes>
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <MainPage />
-            </PrivateRoute>
-          }
-        />
+        <Route element={<PrivateRoute />}>
+          <Route path="/" element={<MainPage />}>
+            <Route path="/card/:id" element={<CardPage />} />
 
-        <Route
-          path="/card/:id"
-          element={
-            <PrivateRoute>
-              <CardPage />
-            </PrivateRoute>
-          }
-        />
+            <Route path="/new" element={<NewCardPage />} />
 
-        <Route
-          path="/new"
-          element={
-            <PrivateRoute>
-              <NewCardPage />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="/exit"
-          element={
-            <PrivateRoute>
-              <ExitPage />
-            </PrivateRoute>
-          }
-        />
+            <Route path="/exit" element={<ExitPage />} />
+          </Route>
+        </Route>
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

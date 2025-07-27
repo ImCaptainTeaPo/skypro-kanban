@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container } from "../shared.styled";
 import {
   HeaderWrapper,
@@ -19,6 +20,7 @@ import {
 function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <HeaderWrapper>
@@ -39,8 +41,8 @@ function Header() {
           </div>
 
           <HeaderNav>
-            <HeaderButton id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
+            <HeaderButton id="btnMainNew" onClick={() => navigate("/new")}>
+              Создать новую задачу
             </HeaderButton>
 
             <HeaderUser onClick={() => setIsPopupOpen(!isPopupOpen)}>
@@ -57,8 +59,9 @@ function Header() {
                   onChange={() => setIsDarkTheme(!isDarkTheme)}
                 />
               </PopUserTheme>
-              <PopUserExitButton>
-                <a href="#popExit">Выйти</a>
+
+              <PopUserExitButton onClick={() => navigate("/exit")}>
+                Выйти
               </PopUserExitButton>
             </HeaderPopUserSet>
           </HeaderNav>

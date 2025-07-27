@@ -1,67 +1,84 @@
 import Calendar from "../components/Calendar/Calendar";
+import {
+  PopNewCard,
+  PopNewCardContainer,
+  PopNewCardBlock,
+  PopNewCardContent,
+  PopNewCardTitle,
+  PopNewCardWrap,
+  PopNewCardForm,
+  PopNewCardCalendar,
+  FormBlock,
+  FormInput,
+  FormArea,
+  FormButton,
+  FormSubTitle,
+  ThemesGroup,
+  ThemeItem,
+} from "./NewCardPage.styled";
+import { PopNewCardClose } from "./NewCardPage.styled";
 
 function NewCardPage() {
   return (
-    <div className="pop-new-card" style={{ padding: "40px" }}>
-      <div className="pop-new-card__container">
-        <div className="pop-new-card__block">
-          <div className="pop-new-card__content">
-            <h3 className="pop-new-card__ttl">Создание задачи</h3>
+    <PopNewCard>
+      <PopNewCardContainer>
+        <PopNewCardBlock>
+          <PopNewCardContent>
+            <PopNewCardTitle>Создание задачи</PopNewCardTitle>
+            <PopNewCardClose>&times;</PopNewCardClose>
 
-            <div className="pop-new-card__wrap">
-              <form className="pop-new-card__form form-new" id="formNewCard">
-                <div className="form-new__block">
-                  <label htmlFor="formTitle" className="subttl">
-                    Название задачи
+            <PopNewCardWrap>
+              <PopNewCardForm id="formNewCard">
+                <FormBlock>
+                  <label htmlFor="formTitle">
+                    <FormSubTitle>Название задачи</FormSubTitle>
                   </label>
-                  <input
-                    className="form-new__input"
+                  <FormInput
                     type="text"
                     name="name"
                     id="formTitle"
                     placeholder="Введите название"
                   />
-                </div>
+                </FormBlock>
 
-                <div className="form-new__block">
-                  <p className="subttl">Описание задачи</p>
-                  <textarea
-                    className="form-new__area"
+                <FormBlock>
+                  <FormSubTitle>Описание задачи</FormSubTitle>
+                  <FormArea
                     name="text"
                     id="formArea"
                     placeholder="Введите описание"
-                  ></textarea>
-                </div>
+                  />
+                </FormBlock>
 
-                <div className="form-new__block">
-                  <p className="subttl">Выберите категорию</p>
-                  <div className="form-new__themes themes">
-                    <div className="themes__item _orange _active-category">
+                <FormBlock>
+                  <FormSubTitle>Выберите категорию</FormSubTitle>
+                  <ThemesGroup>
+                    <ThemeItem variant="orange" active>
                       <p>Web Design</p>
-                    </div>
-                    <div className="themes__item _green">
+                    </ThemeItem>
+                    <ThemeItem variant="green">
                       <p>Research</p>
-                    </div>
-                    <div className="themes__item _purple">
+                    </ThemeItem>
+                    <ThemeItem variant="purple">
                       <p>Copywriting</p>
-                    </div>
-                  </div>
-                </div>
+                    </ThemeItem>
+                  </ThemesGroup>
+                </FormBlock>
 
-                <div className="form-new__block">
-                  <p className="subttl">Дедлайн</p>
-                  <Calendar />
-                </div>
+                <FormBlock>
+                  <FormSubTitle>Дедлайн</FormSubTitle>
+                  <PopNewCardCalendar>
+                    <Calendar />
+                  </PopNewCardCalendar>
+                </FormBlock>
 
-                <button className="form-new__btn-create _hover01" type="submit">
-                  Создать задачу
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                <FormButton type="submit">Создать задачу</FormButton>
+              </PopNewCardForm>
+            </PopNewCardWrap>
+          </PopNewCardContent>
+        </PopNewCardBlock>
+      </PopNewCardContainer>
+    </PopNewCard>
   );
 }
 
