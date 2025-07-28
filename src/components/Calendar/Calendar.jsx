@@ -18,7 +18,7 @@ import {
 function Calendar() {
   return (
     <CalendarWrapper>
-      <CalendarTtl className="subttl">Даты</CalendarTtl>
+      <CalendarTtl>Даты</CalendarTtl>
       <CalendarBlock>
         <CalendarNav>
           <CalendarMonth>Сентябрь 2023</CalendarMonth>
@@ -57,6 +57,7 @@ function Calendar() {
 
           <CalendarCells>
             {[
+              // Неделя 1
               { label: "28", other: true },
               { label: "29", other: true },
               { label: "30", other: true },
@@ -64,6 +65,8 @@ function Calendar() {
               { label: "1" },
               { label: "2", weekend: true },
               { label: "3", weekend: true },
+
+              // Неделя 2
               { label: "4" },
               { label: "5" },
               { label: "6" },
@@ -71,6 +74,8 @@ function Calendar() {
               { label: "8", current: true },
               { label: "9", weekend: true },
               { label: "10", weekend: true },
+
+              // Неделя 3
               { label: "11" },
               { label: "12" },
               { label: "13" },
@@ -78,6 +83,8 @@ function Calendar() {
               { label: "15" },
               { label: "16", weekend: true },
               { label: "17", weekend: true },
+
+              // Неделя 4
               { label: "18" },
               { label: "19" },
               { label: "20" },
@@ -85,6 +92,8 @@ function Calendar() {
               { label: "22" },
               { label: "23", weekend: true },
               { label: "24", weekend: true },
+
+              // Неделя 5
               { label: "25" },
               { label: "26" },
               { label: "27" },
@@ -105,10 +114,9 @@ function Calendar() {
           </CalendarCells>
         </CalendarContent>
 
-        <input type="hidden" id="datepick_value" value="08.09.2023" />
         <CalendarPeriod>
           <CalendarParagraph>
-            Выберите срок исполнения <span className="date-control" />.
+            Выберите срок исполнения <span>09.09.2023</span>
           </CalendarParagraph>
         </CalendarPeriod>
       </CalendarBlock>

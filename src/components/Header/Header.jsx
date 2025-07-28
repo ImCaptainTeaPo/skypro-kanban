@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Container } from "../shared.styled";
 import {
   HeaderWrapper,
   HeaderBlock,
@@ -7,54 +9,77 @@ import {
   HeaderButton,
   HeaderUser,
   HeaderPopUserSet,
+  PopUserName,
+  PopUserMail,
+  PopUserTheme,
+  PopUserThemeLabel,
+  PopUserThemeToggle,
+  PopUserExitButton,
 } from "./Header.styled";
 
 function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const navigate = useNavigate();
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setIsPopupOpen(false);
+        setTimeout(() => navigate("/"), 100);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [navigate]);
 
   return (
     <HeaderWrapper>
-      <div className="container">
+      <Container>
         <HeaderBlock>
           {/* Светлый логотип */}
-          <div className="_show _light">
+          <div className={!isDarkTheme ? "_show _light" : "_hide"}>
             <a href="" target="_self">
               <HeaderLogo src="images/logo.png" alt="logo" />
             </a>
           </div>
 
           {/* Тёмный логотип */}
-          <div className="_dark">
+          <div className={isDarkTheme ? "_dark" : "_hide"}>
             <a href="" target="_self">
               <HeaderLogo src="images/logo_dark.png" alt="logo" />
             </a>
           </div>
 
           <HeaderNav>
-            <HeaderButton id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
+            <HeaderButton id="btnMainNew" onClick={() => navigate("/new")}>
+              Создать новую задачу
             </HeaderButton>
 
             <HeaderUser onClick={() => setIsPopupOpen(!isPopupOpen)}>
               Ivan Ivanov
             </HeaderUser>
 
-            <HeaderPopUserSet
-              style={{ display: isPopupOpen ? "block" : "none" }}
-            >
-              <p className="pop-user-set__name">Ivan Ivanov</p>
-              <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-              <div className="pop-user-set__theme">
-                <p>Темная тема</p>
-                <input type="checkbox" className="checkbox" name="checkbox" />
-              </div>
-              <button type="button" className="_hover03">
-                <a href="#popExit">Выйти</a>
-              </button>
+            <HeaderPopUserSet ref={modalRef} $isOpen={isPopupOpen}>
+              <PopUserName>Ivan Ivanov</PopUserName>
+              <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
+              <PopUserTheme>
+                <PopUserThemeLabel>Темная тема</PopUserThemeLabel>
+                <PopUserThemeToggle
+                  checked={isDarkTheme}
+                  onChange={() => setIsDarkTheme(!isDarkTheme)}
+                />
+              </PopUserTheme>
+
+              <PopUserExitButton onClick={() => navigate("/exit")}>
+                Выйти
+              </PopUserExitButton>
             </HeaderPopUserSet>
           </HeaderNav>
         </HeaderBlock>
-      </div>
+      </Container>
     </HeaderWrapper>
   );
 }

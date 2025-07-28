@@ -1,3 +1,7 @@
+//popexit
+
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   PopExit,
   PopExitContainer,
@@ -10,21 +14,45 @@ import {
 } from "./PopUser.styled";
 
 function PopUser() {
+  const navigate = useNavigate();
+  const modalRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setIsVisible(false);
+        setTimeout(() => navigate("/"), 100);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [navigate]);
+
+  const handleExit = () => {
+    setIsVisible(false);
+    setTimeout(() => navigate("/login"), 100);
+  };
+
+  const handleStay = () => {
+    setIsVisible(false);
+    setTimeout(() => navigate("/"), 100);
+  };
+
+  if (!isVisible) return null;
+
   return (
-    <PopExit id="popExit">
+    <PopExit>
       <PopExitContainer>
-        <PopExitBlock>
+        <PopExitBlock ref={modalRef}>
           <PopExitTitle>
             <h2>Выйти из аккаунта?</h2>
           </PopExitTitle>
-          <PopExitForm id="formExit" action="#">
+          <PopExitForm action="#">
             <PopExitFormGroup>
-              <PopExitYes id="exitYes">
-                <a href="modal/signin.html">Да, выйти</a>
-              </PopExitYes>
-              <PopExitNo id="exitNo">
-                <a href="main.html">Нет, остаться</a>
-              </PopExitNo>
+              <PopExitYes onClick={handleExit}>Да, выйти</PopExitYes>
+              <PopExitNo onClick={handleStay}>Нет, остаться</PopExitNo>
             </PopExitFormGroup>
           </PopExitForm>
         </PopExitBlock>

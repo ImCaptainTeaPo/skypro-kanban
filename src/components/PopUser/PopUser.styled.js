@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const PopExit = styled.div`
-  display: none;
+  display: block;
   width: 100%;
   height: 100%;
   min-width: 320px;
@@ -41,14 +41,12 @@ export const PopExitBlock = styled.div`
 `;
 
 export const PopExitTitle = styled.div`
-  h2 {
-    text-align: center;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 30px;
-    letter-spacing: -0.4px;
-    margin-bottom: 20px;
-  }
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.4px;
+  margin-bottom: 20px;
 `;
 
 export const PopExitForm = styled.form``;
@@ -80,6 +78,7 @@ export const PopExitYes = styled.button`
   letter-spacing: -0.14px;
   color: #ffffff;
   margin-right: 10px;
+  cursor: pointer;
 
   a {
     width: 100%;
@@ -103,7 +102,7 @@ export const PopExitNo = styled.button`
   height: 30px;
   background-color: transparent;
   border-radius: 4px;
-  border: 0.7px solid var(--palette-navy-60, #565eef);
+  border: 0.7px solid #565eef;
   outline: none;
   display: flex;
   align-items: center;
@@ -112,7 +111,8 @@ export const PopExitNo = styled.button`
   line-height: 21px;
   font-weight: 500;
   letter-spacing: -0.14px;
-  color: #ffffff;
+  color: #565eef;
+  cursor: pointer;
 
   a {
     width: 100%;
