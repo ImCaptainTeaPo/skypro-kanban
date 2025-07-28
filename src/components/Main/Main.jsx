@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { cardsData } from "../../data/data";
+import { useNavigate } from "react-router-dom";
+import { getTasks } from "../../services/api";
 import Column from "../Column/Column";
 import { Container } from "../shared.styled";
 import { MainWrapper, MainBlock, MainContent, MainColumn } from "./Main.styled";
@@ -7,15 +8,30 @@ import { MainWrapper, MainBlock, MainContent, MainColumn } from "./Main.styled";
 function Main() {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setCards(cardsData);
-      setIsLoading(false);
-    }, 1500);
+    const fetchData = async () => {
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-    return () => clearTimeout(timer);
-  }, []);
+      if (!userInfo?.token) {
+        navigate("/login");
+        return;
+      }
+
+      try {
+        const tasks = await getTasks(userInfo.token);
+        setCards(tasks);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
 
   const statuses = [
     "Без статуса",
@@ -28,12 +44,15 @@ function Main() {
   return (
     <MainWrapper>
       <Container>
-        {" "}
         <MainBlock>
           <MainContent>
             {isLoading ? (
               <p style={{ fontSize: "20px", padding: "20px" }}>
                 Данные загружаются…
+              </p>
+            ) : error ? (
+              <p style={{ color: "red", fontSize: "18px", padding: "20px" }}>
+                {error}
               </p>
             ) : (
               statuses.map((status) => (
