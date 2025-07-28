@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { signIn } from "../../services/auth";
 import {
   Wrapper,
   Container,
@@ -12,6 +14,29 @@ import {
 } from "./Login.styled";
 
 function Login() {
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!login || !password) {
+      setError("Заполните все поля");
+      return;
+    }
+
+    try {
+      const user = await signIn({ login, password });
+      localStorage.setItem("userInfo", JSON.stringify(user));
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <Wrapper>
       <Container>
@@ -20,9 +45,22 @@ function Login() {
             <ModalTitle>
               <h2>Вход</h2>
             </ModalTitle>
-            <Form>
-              <Input type="text" name="login" placeholder="Эл. почта" />
-              <Input type="password" name="password" placeholder="Пароль" />
+            <Form onSubmit={handleSubmit}>
+              <Input
+                type="text"
+                name="login"
+                placeholder="Эл. почта"
+                value={login}
+                onChange={(e) => setLogin(e.target.value)}
+              />
+              <Input
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {error && <p style={{ color: "red" }}>{error}</p>}
               <Button type="submit">Войти</Button>
               <FormGroup>
                 <p>Нужно зарегистрироваться?</p>
