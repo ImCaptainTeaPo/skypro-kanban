@@ -22,6 +22,7 @@ function Main() {
 
       try {
         const tasks = await getTasks(userInfo.token);
+        console.log("Задачи с сервера:", tasks);
         setCards(tasks);
       } catch (err) {
         setError(err.message);
