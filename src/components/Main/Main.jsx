@@ -1,38 +1,14 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTasks } from "../../services/api";
+import { TaskContext } from "../../context/TaskContext";
 import Column from "../Column/Column";
 import { Container } from "../shared.styled";
 import { MainWrapper, MainBlock, MainContent, MainColumn } from "./Main.styled";
 
 function Main() {
-  const [cards, setCards] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-
-      if (!userInfo?.token) {
-        navigate("/login");
-        return;
-      }
-
-      try {
-        const tasks = await getTasks(userInfo.token);
-        console.log("Задачи с сервера:", tasks);
-        setCards(tasks);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [navigate]);
+  const { tasks, loading, error } = useContext(TaskContext);
+  console.log("Tasks из контекста:", tasks);
 
   const statuses = [
     "Без статуса",
@@ -42,12 +18,18 @@ function Main() {
     "Готово",
   ];
 
+  // Если нет авторизации — редирект
+  if (!localStorage.getItem("userInfo")) {
+    navigate("/login");
+    return null;
+  }
+
   return (
     <MainWrapper>
       <Container>
         <MainBlock>
           <MainContent>
-            {isLoading ? (
+            {loading ? (
               <p style={{ fontSize: "20px", padding: "20px" }}>
                 Данные загружаются…
               </p>
@@ -60,7 +42,7 @@ function Main() {
                 <MainColumn key={status}>
                   <Column
                     title={status}
-                    cards={cards.filter((card) => card.status === status)}
+                    cards={tasks.filter((task) => task.status === status)}
                   />
                 </MainColumn>
               ))

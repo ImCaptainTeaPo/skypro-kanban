@@ -10,11 +10,10 @@ const TaskProvider = ({ children }) => {
   const [error, setError] = useState("");
 
   const refreshTasks = useCallback(async () => {
-    if (!user?.token) return;
-    setLoading(true);
     try {
-      const response = await getTasks(user.token);
-      setTasks(response.data || []);
+      const tasks = await getTasks(user.token);
+      console.log("Ответ от API:", tasks);
+      setTasks(tasks || []);
     } catch (err) {
       console.error("Ошибка загрузки задач:", err);
       setError("Ошибка загрузки задач");
@@ -24,8 +23,10 @@ const TaskProvider = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    refreshTasks();
-  }, [refreshTasks]);
+    if (user?.token) {
+      refreshTasks();
+    }
+  }, [user, refreshTasks]);
 
   const handleAddTask = async (taskData) => {
     try {
