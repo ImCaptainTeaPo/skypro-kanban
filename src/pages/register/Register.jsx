@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../../services/auth";
+import { AuthContext } from "../../context/AuthContext";
+
 import {
   Wrapper,
   Container,
@@ -15,17 +17,18 @@ import {
 
 function Register() {
   const [name, setName] = useState("");
-  const [login, setLogin] = useState("");
+  const [loginValue, setLoginValue] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // ← получаем login() из контекста
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name || !login || !password || !passwordRepeat) {
+    if (!name || !loginValue || !password || !passwordRepeat) {
       setError("Заполните все поля");
       return;
     }
@@ -36,8 +39,8 @@ function Register() {
     }
 
     try {
-      const user = await signUp({ name, login, password });
-      localStorage.setItem("userInfo", JSON.stringify(user));
+      const user = await signUp({ name, login: loginValue, password });
+      login(user); // ← сохраняем пользователя через контекст
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -64,8 +67,8 @@ function Register() {
                 type="text"
                 name="login"
                 placeholder="Эл. почта"
-                value={login}
-                onChange={(e) => setLogin(e.target.value)}
+                value={loginValue}
+                onChange={(e) => setLoginValue(e.target.value)}
               />
               <Input
                 type="password"
@@ -85,7 +88,7 @@ function Register() {
               <Button type="submit">Зарегистрироваться</Button>
               <FormGroup>
                 <p>Уже есть аккаунт?</p>
-                <a href="/login">Войти</a>
+                <a href="/login">Войдите здесь</a>
               </FormGroup>
             </Form>
           </ModalBlock>

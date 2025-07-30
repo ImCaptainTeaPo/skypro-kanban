@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signIn } from "../../services/auth";
+import { AuthContext } from "../../context/AuthContext";
+
 import {
   Wrapper,
   Container,
@@ -14,23 +16,24 @@ import {
 } from "./Login.styled";
 
 function Login() {
-  const [login, setLogin] = useState("");
+  const [loginValue, setLoginValue] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!login || !password) {
+    if (!loginValue || !password) {
       setError("Заполните все поля");
       return;
     }
 
     try {
-      const user = await signIn({ login, password });
-      localStorage.setItem("userInfo", JSON.stringify(user));
+      const user = await signIn({ login: loginValue, password });
+      login(user);
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -50,8 +53,8 @@ function Login() {
                 type="text"
                 name="login"
                 placeholder="Эл. почта"
-                value={login}
-                onChange={(e) => setLogin(e.target.value)}
+                value={loginValue}
+                onChange={(e) => setLoginValue(e.target.value)}
               />
               <Input
                 type="password"
