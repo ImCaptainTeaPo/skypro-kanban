@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "../shared.styled";
+import { AuthContext } from "../../context/AuthContext";
+
 import {
   HeaderWrapper,
   HeaderBlock,
@@ -22,6 +24,8 @@ function Header() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const navigate = useNavigate();
   const modalRef = useRef(null);
+
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -59,17 +63,17 @@ function Header() {
             </HeaderButton>
 
             <HeaderUser onClick={() => setIsPopupOpen(!isPopupOpen)}>
-              Ivan Ivanov
+              {user?.name || "Пользователь"}
             </HeaderUser>
 
             <HeaderPopUserSet ref={modalRef} $isOpen={isPopupOpen}>
-              <PopUserName>Ivan Ivanov</PopUserName>
-              <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
+              <PopUserName>{user?.name || "Имя не указано"}</PopUserName>
+              <PopUserMail>{user?.email || "email@example.com"}</PopUserMail>
+
               <PopUserTheme>
                 <PopUserThemeLabel>Темная тема</PopUserThemeLabel>
                 <PopUserThemeToggle
-                  checked={isDarkTheme}
-                  onChange={() => setIsDarkTheme(!isDarkTheme)}
+                  onClick={() => setIsDarkTheme(!isDarkTheme)}
                 />
               </PopUserTheme>
 
