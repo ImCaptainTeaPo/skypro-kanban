@@ -1,7 +1,7 @@
-//popexit
-
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+
 import {
   PopExit,
   PopExitContainer,
@@ -18,6 +18,8 @@ function PopUser() {
   const modalRef = useRef(null);
   const [isVisible, setIsVisible] = useState(true);
 
+  const { logout } = useContext(AuthContext);
+
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -32,6 +34,7 @@ function PopUser() {
 
   const handleExit = () => {
     setIsVisible(false);
+    logout();
     setTimeout(() => navigate("/login"), 100);
   };
 
