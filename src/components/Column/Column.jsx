@@ -16,7 +16,7 @@ function Column({ title, cards }) {
         {cards && cards.length > 0 ? (
           cards.map((card) => (
             <Card
-              key={card.id}
+              key={card._id}
               topic={card.topic}
               title={card.title}
               date={card.date}
