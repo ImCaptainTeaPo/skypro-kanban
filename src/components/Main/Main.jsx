@@ -4,11 +4,11 @@ import { TaskContext } from "../../context/TaskContext";
 import Column from "../Column/Column";
 import { Container } from "../shared.styled";
 import { MainWrapper, MainBlock, MainContent, MainColumn } from "./Main.styled";
+import Loader from "../Loaders/Loader";
 
 function Main() {
   const navigate = useNavigate();
   const { tasks, loading, error } = useContext(TaskContext);
-  console.log("Tasks из контекста:", tasks);
 
   const statuses = [
     "Без статуса",
@@ -18,7 +18,6 @@ function Main() {
     "Готово",
   ];
 
-  // Если нет авторизации — редирект
   if (!localStorage.getItem("userInfo")) {
     navigate("/login");
     return null;
@@ -30,9 +29,7 @@ function Main() {
         <MainBlock>
           <MainContent>
             {loading ? (
-              <p style={{ fontSize: "20px", padding: "20px" }}>
-                Данные загружаются…
-              </p>
+              <Loader />
             ) : error ? (
               <p style={{ color: "red", fontSize: "18px", padding: "20px" }}>
                 {error}
