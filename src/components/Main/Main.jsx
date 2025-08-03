@@ -28,9 +28,7 @@ function Main() {
       <Container>
         <MainBlock>
           <MainContent>
-            {loading ? (
-              <Loader />
-            ) : error ? (
+            {error ? (
               <p style={{ color: "red", fontSize: "18px", padding: "20px" }}>
                 {error}
               </p>
@@ -38,6 +36,7 @@ function Main() {
               statuses.map((status) => (
                 <MainColumn key={status}>
                   <Column
+                    loading={loading}
                     title={status}
                     cards={tasks.filter((task) => task.status === status)}
                   />

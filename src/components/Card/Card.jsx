@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   CardItem,
   CardWrapper,
@@ -9,7 +10,7 @@ import {
   CardDate,
 } from "./Card.styled";
 
-function Card({ topic, title, date }) {
+function Card({ _id, topic, title, date }) {
   const themeClassMap = {
     "Web Design": "card__theme--orange",
     Research: "card__theme--green",
@@ -25,19 +26,19 @@ function Card({ topic, title, date }) {
           <CardTheme className={themeClass}>
             <p>{topic}</p>
           </CardTheme>
-          <a href="#popBrowse" target="_self">
+          <Link to={`/card/${_id}`}>
             <CardButton>
               <div></div>
               <div></div>
               <div></div>
             </CardButton>
-          </a>
+          </Link>
         </CardGroup>
 
         <CardContent>
-          <a href="#" target="_blank">
+          <Link to={`/card/${_id}`}>
             <CardTitle>{title}</CardTitle>
-          </a>
+          </Link>
           <CardDate>
             <svg
               xmlns="http://www.w3.org/2000/svg"

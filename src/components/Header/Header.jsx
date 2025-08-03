@@ -30,14 +30,13 @@ function Header() {
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setIsPopupOpen(false);
-        setTimeout(() => navigate("/"), 100);
+        setTimeout(() => setIsPopupOpen(false), 100);
       }
     };
 
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, [navigate]);
+  }, []);
 
   return (
     <HeaderWrapper>
@@ -58,7 +57,7 @@ function Header() {
           </div>
 
           <HeaderNav>
-            <HeaderButton id="btnMainNew" onClick={() => navigate("/new")}>
+            <HeaderButton id="btnMainNew" to="/new">
               Создать новую задачу
             </HeaderButton>
 

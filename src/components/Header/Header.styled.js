@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const HeaderWrapper = styled.header`
@@ -30,7 +31,7 @@ export const HeaderNav = styled.nav`
   justify-content: center;
 `;
 
-export const HeaderButton = styled.button`
+export const HeaderButton = styled(Link)`
   width: 178px;
   height: 30px;
   border-radius: 4px;

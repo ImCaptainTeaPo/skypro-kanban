@@ -1,8 +1,11 @@
+import { TaskContext } from "../../context/TaskContext";
 import Calendar from "../Calendar/Calendar";
-import { cardsData } from "../../data/data";
+import { useContext } from "react";
 
 function PopBrowse({ cardId }) {
-  const card = cardsData.find((c) => c.id === Number(cardId));
+  const { tasks } = useContext(TaskContext);
+  const card = tasks.find((c) => c._id === cardId);
+  console.log(tasks);
 
   if (!card) {
     return (
