@@ -1,17 +1,16 @@
-import { Outlet } from "react-router-dom";
-import Main from "../components/Main/Main";
-import Popups from "../components/Popups/Popups";
-import Header from "../components/Header/Header";
+import { Outlet } from 'react-router-dom'
+import Container from '../components/Container/Container'
+import Header from '../components/Header/Header'
+import Main from '../components/Main/Main'
 
-function MainPage() {
-  return (
-    <>
-      <Popups />
-      <Header />
-      <Main />
-      <Outlet />
-    </>
-  );
+const MainPage = () => {
+	return (
+		<Container>
+			<Header />
+			<Main />
+			<Outlet />
+		</Container>
+	)
 }
 
-export default MainPage;
+export default MainPage
