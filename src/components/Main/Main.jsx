@@ -1,57 +1,52 @@
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { TaskContext } from "../../context/TaskContext";
-import Column from "../Column/Column";
-import { Container } from "../shared.styled";
-import { MainWrapper, MainBlock, MainContent, MainColumn } from "./Main.styled";
+import { useContext } from 'react'
+import { CardContext } from '../../context/CardContext.js'
+import Column from '../Column/Column'
+import { Scontainer, Smain, SmainBlock, SmainContent } from './Main.styled.jsx'
 
-function Main() {
-  const navigate = useNavigate();
-  const { tasks, loading, error } = useContext(TaskContext);
-  console.log("Tasks из контекста:", tasks);
+export default function Main() {
+	const { cards, error } = useContext(CardContext)
 
-  const statuses = [
-    "Без статуса",
-    "Нужно сделать",
-    "В работе",
-    "Тестирование",
-    "Готово",
-  ];
+	if (error) {
+		return (
+			<Smain>
+				<Scontainer>
+					<p>Ошибка: {error}</p>
+				</Scontainer>
+			</Smain>
+		)
+	}
 
-  // Если нет авторизации — редирект
-  if (!localStorage.getItem("userInfo")) {
-    navigate("/login");
-    return null;
-  }
+	const allStatuses = [
+		'Без статуса',
+		'Нужно сделать',
+		'В работе',
+		'Тестирование',
+		'Готово',
+	]
 
-  return (
-    <MainWrapper>
-      <Container>
-        <MainBlock>
-          <MainContent>
-            {loading ? (
-              <p style={{ fontSize: "20px", padding: "20px" }}>
-                Данные загружаются…
-              </p>
-            ) : error ? (
-              <p style={{ color: "red", fontSize: "18px", padding: "20px" }}>
-                {error}
-              </p>
-            ) : (
-              statuses.map((status) => (
-                <MainColumn key={status}>
-                  <Column
-                    title={status}
-                    cards={tasks.filter((task) => task.status === status)}
-                  />
-                </MainColumn>
-              ))
-            )}
-          </MainContent>
-        </MainBlock>
-      </Container>
-    </MainWrapper>
-  );
+	const cardsByStatus = cards?.reduce((acc, card) => {
+		if (!card) return acc
+		const status = card.status || 'Без статуса'
+		if (!acc[status]) acc[status] = []
+		acc[status].push(card)
+		return acc
+	}, {})
+
+	return (
+		<Smain>
+			<Scontainer>
+				<SmainBlock>
+					<SmainContent>
+						{allStatuses.map(status => (
+							<Column
+								key={status}
+								title={status}
+								cards={cardsByStatus[status] || []}
+							/>
+						))}
+					</SmainContent>
+				</SmainBlock>
+			</Scontainer>
+		</Smain>
+	)
 }
-
-export default Main;

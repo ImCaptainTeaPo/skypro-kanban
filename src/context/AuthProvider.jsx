@@ -1,44 +1,24 @@
-import { useState, useEffect } from "react";
-import { AuthContext } from "./AuthContext";
+import { useState } from 'react'
+import { checkLs } from '../utils/checkLs'
+import { AuthContext } from './AuthContext'
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+	const [user, setUser] = useState(checkLs())
 
-  useEffect(() => {
-    try {
-      const storedUser = localStorage.getItem("userInfo");
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      }
-    } catch (error) {
-      console.error("Ошибка при загрузке userInfo из localStorage:", error);
-    }
-  }, []);
+	const updateUserInfo = userData => {
+		setUser(userData)
+		if (userData) {
+			localStorage.setItem('userInfo', JSON.stringify(userData))
+		} else {
+			localStorage.removeItem('userInfo')
+		}
+	}
 
-  const updateUserInfo = (userData) => {
-    setUser(userData);
-    if (userData) {
-      localStorage.setItem("userInfo", JSON.stringify(userData));
-    } else {
-      localStorage.removeItem("userInfo");
-    }
-  };
+	return (
+		<AuthContext.Provider value={{ user, updateUserInfo }}>
+			{children}
+		</AuthContext.Provider>
+	)
+}
 
-  const login = (userData) => {
-    updateUserInfo(userData);
-    return true;
-  };
-
-  const logout = () => {
-    updateUserInfo(null);
-    return true;
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, login, logout, updateUserInfo }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export default AuthProvider;
+export default AuthProvider

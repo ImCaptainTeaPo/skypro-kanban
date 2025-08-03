@@ -1,91 +1,58 @@
-import { useEffect, useRef, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { Container } from "../shared.styled";
-import { AuthContext } from "../../context/AuthContext";
-
+import { useContext, useRef, useState } from 'react'
+import { useTheme } from 'styled-components'
+import { AuthContext } from '../../context/AuthContext'
+import { Scontainer } from '../Main/Main.styled'
+import PopUser from '../popups/PopUser/PopUser'
 import {
-  HeaderWrapper,
-  HeaderBlock,
-  HeaderLogo,
-  HeaderNav,
-  HeaderButton,
-  HeaderUser,
-  HeaderPopUserSet,
-  PopUserName,
-  PopUserMail,
-  PopUserTheme,
-  PopUserThemeLabel,
-  PopUserThemeToggle,
-  PopUserExitButton,
-} from "./Header.styled";
+	Hblock,
+	Hbtn,
+	HbtnMobile,
+	Hlogo,
+	Hnav,
+	Huser,
+	Sheader,
+} from './Header.styled'
 
-function Header() {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const navigate = useNavigate();
-  const modalRef = useRef(null);
+export default function Header() {
+	const userBtnRef = useRef(null)
+	const [isPopUserOpen, setIsPopUserOpen] = useState(false)
+	const { user } = useContext(AuthContext)
+	const theme = useTheme()
+	const isDark = theme.mode === 'dark'
+	const logoSrc = isDark ? 'images/logo_dark.png' : 'images/logo.png'
 
-  const { user } = useContext(AuthContext);
-
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setIsPopupOpen(false);
-        setTimeout(() => navigate("/"), 100);
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, [navigate]);
-
-  return (
-    <HeaderWrapper>
-      <Container>
-        <HeaderBlock>
-          {/* Светлый логотип */}
-          <div className={!isDarkTheme ? "_show _light" : "_hide"}>
-            <a href="" target="_self">
-              <HeaderLogo src="images/logo.png" alt="logo" />
-            </a>
-          </div>
-
-          {/* Тёмный логотип */}
-          <div className={isDarkTheme ? "_dark" : "_hide"}>
-            <a href="" target="_self">
-              <HeaderLogo src="images/logo_dark.png" alt="logo" />
-            </a>
-          </div>
-
-          <HeaderNav>
-            <HeaderButton id="btnMainNew" onClick={() => navigate("/new")}>
-              Создать новую задачу
-            </HeaderButton>
-
-            <HeaderUser onClick={() => setIsPopupOpen(!isPopupOpen)}>
-              {user?.name || "Пользователь"}
-            </HeaderUser>
-
-            <HeaderPopUserSet ref={modalRef} $isOpen={isPopupOpen}>
-              <PopUserName>{user?.name || "Имя не указано"}</PopUserName>
-              <PopUserMail>{user?.email || "email@example.com"}</PopUserMail>
-
-              <PopUserTheme>
-                <PopUserThemeLabel>Темная тема</PopUserThemeLabel>
-                <PopUserThemeToggle
-                  onClick={() => setIsDarkTheme(!isDarkTheme)}
-                />
-              </PopUserTheme>
-
-              <PopUserExitButton onClick={() => navigate("/exit")}>
-                Выйти
-              </PopUserExitButton>
-            </HeaderPopUserSet>
-          </HeaderNav>
-        </HeaderBlock>
-      </Container>
-    </HeaderWrapper>
-  );
+	return (
+		<Sheader>
+			<Scontainer>
+				<Hblock>
+					<Hlogo>
+						<a href='' target='_self'>
+							<img src={logoSrc} alt='logo' />
+						</a>
+					</Hlogo>
+					<Hnav>
+						<Hbtn id='btnMainNew' to='/card/add'>
+							Создать новую задачу
+						</Hbtn>
+						<HbtnMobile to='/card/add'>Создать новую задачу</HbtnMobile>
+						<Huser
+							ref={userBtnRef}
+							onClick={e => {
+								e.preventDefault()
+								setIsPopUserOpen(!isPopUserOpen)
+							}}
+						>
+							{user?.user?.name || 'Гость'}
+						</Huser>
+						{isPopUserOpen && (
+							<PopUser
+								user={user}
+								togglePopExit={() => setIsPopUserOpen(false)}
+							/>
+						)}
+					</Hnav>
+				</Hblock>
+			</Scontainer>
+		</Sheader>
+	)
 }
-
-export default Header;
